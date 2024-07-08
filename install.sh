@@ -84,4 +84,7 @@ find "$fonts_dir" -name '*Windows Compatible*' -delete
 echo "Fira Mono font - alacritty font"
 cp Fira_Mono/* $fonts_dir
 
+echo "Ubuntu Nerd font - bar font"
+cp Ubuntu/* $fonts_dir
+
 fc-cache -fv
