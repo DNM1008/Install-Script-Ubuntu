@@ -88,3 +88,59 @@ echo "Ubuntu Nerd font - bar font"
 cp Ubuntu/* $fonts_dir
 
 fc-cache -fv
+
+echo "GTK theme"
+
+cd ~/.local/share/themes
+
+# Set the root URL
+export ROOT_URL="https://https://github.com/catppuccin/gtk/releases/download"
+
+# Change to the tag you want to download
+export RELEASE="v1.0.3"
+  
+# Change to suite your flavor / accent combination
+export FLAVOR="macchiato"
+export ACCENT="rosewater"
+curl -LsS "${ROOT_URL}/${RELEASE}/catppuccin-${FLAVOR}-${ACCENT}-standard+default.zip"
+
+# Extract the catppuccin zip file
+unzip catppuccin-${FLAVOR}-${ACCENT}-standard+default.zip
+
+# Set the catppuccin theme directory
+export THEME_DIR="$HOME/.local/share/themes/catppuccin-${FLAVOR}-${ACCENT}-standard+default"
+
+# Optionally, add support for libadwaita
+mkdir -p "${HOME}/.config/gtk-4.0" && 
+ln -sf "${THEME_DIR}/gtk-4.0/assets" "${HOME}/.config/gtk-4.0/assets" &&
+ln -sf "${THEME_DIR}/gtk-4.0/gtk.css" "${HOME}/.config/gtk-4.0/gtk.css" &&
+ln -sf "${THEME_DIR}/gtk-4.0/gtk-dark.css" "${HOME}/.config/gtk-4.0/gtk-dark.css"
+
+echo "System configs"
+
+echo "source /home/$user/.config/bash/bash_profile" | sudo tee -a /etc/bash.bashrc
+echo "QT_QPA_PLATFORMTHEME=qt5ct" | sudo tee -a /etc/environment
+
+
+
+echo "Installing rofi theme"
+cd ~/Downloads/
+git clone https://github.com/catppuccin/rofi.git
+cd rofi/basic && ./install.sh
+
+
+
+echo "Cleaning up"
+cd
+
+source .config/bash/bash_profile
+
+sudo rm -r .bash_history .bash_profile .bash_logout .bashrc
+sudo rm -r .gnupg/
+sudo rm -r go/
+yay -Scc --noconfirm
+
+sudo rm -r  ~/go
+antidot update
+antidot clean
+eval "$(antidot init)"
