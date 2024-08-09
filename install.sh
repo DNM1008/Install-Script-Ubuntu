@@ -6,6 +6,8 @@ wd=$(pwd)
 #
 #
 #
+set -e
+
 echo "Downloading config files first"
 cd ~/Downloads/
 git clone --depth=1 https://github.com/DNM1008/Dots && cd Dots
